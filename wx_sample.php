@@ -4,7 +4,9 @@
   */
 
 //define your token
-define("TOKEN", "jgxq");
+define("TOKEN", "markzhu");
+define("APPID","wx26ab595b1d049a06");
+define("APPSECRET","c0e84fcfcecbbe3cec8e80189870d0b8");
 $wechatObj = new wechatCallbackapiTest();
 $wechatObj->valid();
 
@@ -77,5 +79,4 @@ class wechatCallbackapiTest
 		}
 	}
 }
-
 ?>
