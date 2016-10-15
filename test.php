@@ -15,7 +15,7 @@ define("APPSECRET","be27d8bf1bcdde5065454e943341268c");
  * access_token:全局接口调用唯一凭据，至少512字符空间，有效期为2小时
  * expire_in:返回一个0-7200之间的数字，超过7200及2小时token失效，需要更新
  */
-get_access_token();
+//get_access_token();
 //get_weixin_ip();
 
 function get_access_token()
@@ -40,3 +40,51 @@ function get_weixin_ip()
         echo var_export($value)."<br />";
     }
 }
+
+
+//curl实例
+function http_curl()
+{
+    $url='http://www.baidu.com';
+    //初始化curl
+    $ch=curl_init();
+    //设置curl参数
+    curl_setopt($ch,CURLOPT_URL,$url);
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+    //采集
+    $output=curl_exec($ch);
+    curl_close($ch);
+    var_dump($output);
+}
+//http_curl();
+
+function getWeChatToken()
+{
+    //请求地址
+    $url='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.APPID.'&secret='.APPSECRET;
+    $ch=curl_init();
+    curl_setopt($ch,CURLOPT_URL,$url);
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER,true);
+    //调用接口
+    $res=curl_exec($ch);
+    if(curl_errno($ch))var_export(curl_error($ch));
+    curl_close($ch);
+    $arr=json_decode($res,true);
+    file_put_contents(getcwd().'/access_token',$res);
+    var_export($arr);
+}
+//getWeChatToken();
+function getWeChatIp()
+{
+    $token=json_decode(file_get_contents(getcwd().'/access_token'),true)['access_token'];
+    $url='https://api.weixin.qq.com/cgi-bin/getcallbackip?access_token='.$token;
+    $ch=curl_init();
+    curl_setopt($ch,CURLOPT_URL,$url);
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER,TRUE);
+    $ip=curl_exec($ch);
+    curl_close($ch);
+    echo '<pre>';
+    var_export(json_decode($ip,true));
+    echo '</pre>';
+}
+getWeChatIp();

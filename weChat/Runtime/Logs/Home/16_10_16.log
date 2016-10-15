@@ -1,0 +1,15 @@
+[ 2016-10-16T00:23:09+08:00 ] 127.0.0.1 /
+INFO: [ app_init ] --START--
+INFO: Run Behavior\BuildLiteBehavior [ RunTime:0.000011s ]
+INFO: [ app_init ] --END-- [ RunTime:0.000328s ]
+INFO: [ app_begin ] --START--
+INFO: Run Behavior\ReadHtmlCacheBehavior [ RunTime:0.000390s ]
+INFO: [ app_begin ] --END-- [ RunTime:0.000430s ]
+NOTIC: [8] Undefined index: signature /home/red/test/weChat/weChat/Home/Controller/IndexController.class.php 第 8 行.
+NOTIC: [8] Undefined index: timestamp /home/red/test/weChat/weChat/Home/Controller/IndexController.class.php 第 9 行.
+NOTIC: [8] Undefined index: nonce /home/red/test/weChat/weChat/Home/Controller/IndexController.class.php 第 10 行.
+NOTIC: [8] Undefined index: echostr /home/red/test/weChat/weChat/Home/Controller/IndexController.class.php 第 11 行.
+INFO: [ app_end ] --START--
+INFO: Run Behavior\ShowPageTraceBehavior [ RunTime:0.000566s ]
+INFO: [ app_end ] --END-- [ RunTime:0.000623s ]
+
