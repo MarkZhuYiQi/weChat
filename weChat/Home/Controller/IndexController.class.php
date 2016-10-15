@@ -1,7 +1,8 @@
 <?php
 namespace Home\Controller;
 use Think\Controller;
-class IndexController extends Controller {
+class IndexController extends Controller
+{
     public function index()
     {
         $signature=$_GET['signature'];
@@ -12,6 +13,7 @@ class IndexController extends Controller {
         $tempArr=array($token,$timestamp,$nonce);
         sort($tempArr);
         $tempStr=sha1(implode('',$tempArr));
+        file_put_contents("weixin",date('Y-m-d H:i:s').$signature."|".$timestamp."|".$nonce."|".$echoStr.PHP_EOL);
         if($tempStr==$signature && $echoStr)
         {
             echo $echoStr;
@@ -22,54 +24,56 @@ class IndexController extends Controller {
             $this->responseMsg();
         }
     }
-/*<xml>
-<ToUserName><![CDATA[toUser]]></ToUserName>
-<FromUserName><![CDATA[FromUser]]></FromUserName>
-<CreateTime>123456789</CreateTime>
-<MsgType><![CDATA[event]]></MsgType>
-<Event><![CDATA[subscribe]]></Event>
-</xml>*/
     public function responseMsg()
     {
-        $postStr=$GLOBALS['HTTP_RAW_POST_DATA'];
+        $postStr=file_get_contents('php://input');
+        file_put_contents(getcwd().'/msg',$postStr);
         if(!empty($postStr))
         {
-            $postObj=simplexml_load_string($postStr,'SimpleXMLElement',LIBXML_NOCDATA);
+//            $postObj=simplexml_load_string($postStr,'SimpleXMLElement',LIBXML_NOCDATA);
+            $postObj=simplexml_load_string($postStr);
             $fromUserName=$postObj->FromUserName;
             $toUserName=$postObj->ToUserName;
-            $keyWord=$postObj->Content;
             $time=time();
-            //判断该数据包是否是订阅的事件推送
-            if(strtolower($postObj->MsgType)=='event')
+            switch(strtolower($postObj->MsgType))
             {
-                //如果是关注
-                if(strtolower($postObj->Event='subscribe'))
-                {
-                    //自动回复一个消息
-                    $re_toUserName=$fromUserName;
-                    $re_fromUserName=$toUserName;
-                    $MsgType='text';
-                    $Content='welcome to subscribe my account!';
-                    //回复消息格式
-/*<xml>
-<ToUserName><![CDATA[toUser]]></ToUserName>
-<FromUserName><![CDATA[fromUser]]></FromUserName>
-<CreateTime>12345678</CreateTime>
-<MsgType><![CDATA[text]]></MsgType>
-<Content><![CDATA[你好]]></Content>
-</xml>*/
-                    $template="<xml>
+                case "event":
+                    if(strtolower($postObj->Event)=='subscribe')
+                    {
+                        //自动回复一个消息
+                        $re_toUserName=$fromUserName;
+                        $re_fromUserName=$toUserName;
+                        $MsgType='text';
+                        $Content='welcome to subscribe my account!';
+                        //回复消息格式
+                        $template="<xml>
                                 <ToUserName><![CDATA[%s]]></ToUserName>
                                 <FromUserName><![CDATA[%s]]></FromUserName>
                                 <CreateTime>%s</CreateTime>
                                 <MsgType><![CDATA[%s]]></MsgType>
                                 <Content><![CDATA[%s]]></Content>
                                 </xml>";
+                        $info=sprintf($template,$re_toUserName,$re_fromUserName,$time,$MsgType,$Content);
+                        echo $info;
+                    }
+                break;
+                case "text":
+                    //自动回复一个消息
+                    $re_toUserName=$fromUserName;
+                    $re_fromUserName=$toUserName;
+                    $MsgType='text';
+                    $Content="Don't be so rapid, i see it you fucking asshole!";
+                    $template='<xml>
+<ToUserName><![CDATA[%s]]></ToUserName>
+<FromUserName><![CDATA[%s]]></FromUserName>
+<CreateTime>%s</CreateTime>
+<MsgType><![CDATA[%s]]></MsgType>
+<Content><![CDATA[%s]]></Content>
+</xml>';
                     $info=sprintf($template,$re_toUserName,$re_fromUserName,$time,$MsgType,$Content);
                     echo $info;
-                }
+                break;
             }
-
         }
     }
 }

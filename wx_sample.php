@@ -8,8 +8,8 @@ define("TOKEN", "markzhu");
 define("APPID","wx26ab595b1d049a06");
 define("APPSECRET","c0e84fcfcecbbe3cec8e80189870d0b8");
 $wechatObj = new wechatCallbackapiTest();
-$wechatObj->valid();
-
+//$wechatObj->valid();
+$wechatObj->responseMsg();
 class wechatCallbackapiTest
 {
 	public function valid()
@@ -26,8 +26,9 @@ class wechatCallbackapiTest
     public function responseMsg()
     {
 		//get post data, May be due to the different environments
-		$postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
-
+//		$postStr = $GLOBALS["HTTP_RAW_POST_DATA"];
+		$postStr=file_get_contents('php://input');
+		echo file_put_contents(getcwd().'/msg',$postStr);
       	//extract post data
 		if (!empty($postStr)){
                 

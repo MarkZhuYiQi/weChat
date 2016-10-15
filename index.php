@@ -24,3 +24,58 @@ define('APP_PATH','./weChat/');
 require './ThinkPHP/ThinkPHP.php';
 
 // 亲^_^ 后面不需要任何代码了 就是如此简单
+
+/*
+define("APPID","wx26ab595b1d049a06");
+define("APPSECRET","c0e84fcfcecbbe3cec8e80189870d0b8");
+
+function checkSignature()
+{
+    $signature=$_GET['signature'];
+    $timestamp=$_GET['timestamp'];
+    $nonce=$_GET['nonce'];
+    $echoStr=$_GET['echostr'];
+    $token='markzhu';
+    $tempArr=array($token,$timestamp,$nonce);
+    sort($tempArr);
+    $tempStr=sha1(implode('',$tempArr));
+    file_put_contents(getcwd().'/weixin',date('Y-m-d H:i:s').'signature: '.$signature
+        ."|timestamp: ".$timestamp."|nonce: ".$nonce."|echoStr: ".$echoStr.PHP_EOL);
+    if($tempStr==$signature && $echoStr)
+    {
+        return true;
+        exit;
+    }
+    return false;
+}
+function vaild()
+{
+    if(checkSignature())
+    {
+        $echoStr=$_GET['echostr'];
+        echo $echoStr;
+    }
+}
+function responseMsg()
+{
+//    if(checkSignature() && $GLOBALS['HTTP_RAW_POST_DATA'])
+//    {
+        $postStr=$GLOBALS['HTTP_RAW_POST_DATA'];
+        file_put_contents(getcwd().'/msg',$postStr);
+//    }
+}
+
+function get_access_token()
+{
+    $url='https://api.weixin.qq.com/cgi-bin/token?grant_type=client_credential&appid='.APPID.'&secret='.APPSECRET;
+    $return=file_get_contents($url);
+//    return json_decode($return)->access_token;
+    file_put_contents(getcwd().'/access_token',$return);
+    responseMsg();
+    echo '';
+
+
+}
+//vaild();
+get_access_token();
+*/

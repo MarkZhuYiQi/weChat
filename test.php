@@ -27,6 +27,7 @@ function get_access_token()
     {
         echo $key .'='. $value.PHP_EOL;
     }
+    file_put_contents(getcwd().'/access_token',$return);
 }
 function get_weixin_ip()
 {
