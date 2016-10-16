@@ -40,10 +40,14 @@ class IndexController extends Controller
                 case "event":
                 case "text":
                     //自动回复一个消息
-                    $this->replies('text',$postObj);
-                break;
-                case "news":
-                    $this->replies('news',$postObj);
+                    if(strtolower(trim($postObj->Content))=='news')
+                    {
+                        $this->replies('news',$postObj);
+                    }
+                    else
+                    {
+                        $this->replies('text',$postObj);
+                    }
                 break;
             }
         }
@@ -109,32 +113,30 @@ class IndexController extends Controller
                     <Content><![CDATA[%s]]></Content>
                     </xml>";
                 $info=sprintf($template,$re_toUserName,$re_fromUserName,$time,$MsgType,$Content);
-                echo $info;
             break;
             case 'news':
                 $MsgType='news';
-                $articleCount=2;
                 $items=array(
                     array(
                         'title'=>'weChat developer document',
                         'description'=>'a detailed introduction to teach developer how to use its API',
-                        'picurl'=>'./big.png',
+                        'picurl'=>'http://markzhu.imwork.net/big.png',
                         'url'=>'http://www.baidu.com'
                     ),
                     array(
                         'title'=>'developer document',
                         'description'=>'a detailed introduction to teach developer how to use its API',
-                        'picurl'=>'./small.png',
+                        'picurl'=>'http://markzhu.imwork.net/small.png',
                         'url'=>'http://www.baidu.com'
                     )
-
                 );
+                $articleCount=count($items);
                 $template='<xml>
-                            <ToUserName><![CDATA['.$re_toUserName.']]></ToUserName>
-                            <FromUserName><![CDATA['.$re_fromUserName.']]></FromUserName>
-                            <CreateTime>12345678</CreateTime>
-                            <MsgType><![CDATA['.$MsgType.']]></MsgType>
-                            <ArticleCount>'.$articleCount.'</ArticleCount>';
+                            <ToUserName><![CDATA[%s]]></ToUserName>
+                            <FromUserName><![CDATA[%s]]></FromUserName>
+                            <CreateTime>%s</CreateTime>
+                            <MsgType><![CDATA[%s]]></MsgType>
+                            <ArticleCount>%s</ArticleCount>';
                 $template.='<Articles>';
                 foreach($items as $item)
                 {
@@ -147,9 +149,9 @@ class IndexController extends Controller
                 }
                 $template.='</Articles>
                             </xml>';
-                echo $template;
+                $info=sprintf($template,$re_toUserName,$re_fromUserName,$time,$MsgType,$articleCount);
             break;
         }
-
+        echo $info;
     }
 }

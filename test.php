@@ -15,7 +15,7 @@ define("APPSECRET","be27d8bf1bcdde5065454e943341268c");
  * access_token:全局接口调用唯一凭据，至少512字符空间，有效期为2小时
  * expire_in:返回一个0-7200之间的数字，超过7200及2小时token失效，需要更新
  */
-//get_access_token();
+get_access_token();
 //get_weixin_ip();
 
 function get_access_token()
@@ -87,4 +87,50 @@ function getWeChatIp()
     var_export(json_decode($ip,true));
     echo '</pre>';
 }
-getWeChatIp();
+//getWeChatIp();
+function customMenu()
+{
+    $token=json_decode(file_get_contents(getcwd().'/access_token'),true)['access_token'];
+    $url=' https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$token;
+    $menuData='
+    {
+     "button":[
+     {	
+          "type":"click",
+          "name":"今日歌曲",
+          "key":"V1001_TODAY_MUSIC"
+      },
+      {
+           "name":"菜单",
+           "sub_button":[
+           {	
+               "type":"view",
+               "name":"搜索",
+               "url":"http://www.soso.com/"
+            },
+            {
+               "type":"view",
+               "name":"视频",
+               "url":"http://v.qq.com/"
+            },
+            {
+               "type":"click",
+               "name":"赞一下我们",
+               "key":"V1001_GOOD"
+            }]
+       }]
+ }';
+    $ch=curl_init();
+    curl_setopt($ch,CURLOPT_URL,$url);
+    curl_setopt($ch,CURLOPT_CUSTOMREQUEST,'POST');
+    curl_setopt($ch,CURLOPT_SSL_VERIFYPEER,FALSE);
+    curl_setopt($ch,CURLOPT_SSL_VERIFYHOST,FALSE);
+    curl_setopt($ch,CURLOPT_FOLLOWLOCATION,TRUE);
+    curl_setopt($ch,CURLOPT_POSTFIELDS,$menuData);
+    curl_setopt($ch,CURLOPT_RETURNTRANSFER,TRUE);
+    $res=curl_exec($ch);
+    if(curl_errno($ch))echo 'Error!'.curl_error($ch);
+    curl_close($ch);
+    echo($res);
+}
+customMenu();
