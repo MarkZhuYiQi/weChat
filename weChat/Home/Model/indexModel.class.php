@@ -29,7 +29,13 @@ class indexModel
                         .'send Time: '.date('Y-m-d H:i:s',$postObj->CreateTime).PHP_EOL;
                     break;
                 case 'link':
-                    $Content="<a href='http://www.baidu.com'>baidu</a>";
+                    $Content="<a href='http://markzhu.imwork.net/demo/index.html'>demo</a>";
+                    break;
+                case 'auth':
+                    $scope='snsapi_userinfo';
+                    $redirect_uri='http://markzhu.imwork.net/OAUTH.php?'.mt_rand(0,2);
+                    $url="https://open.weixin.qq.com/connect/oauth2/authorize?appid=".APPID."&redirect_uri=".$redirect_uri."&response_type=code&scope=".$scope."&state=1#wechat_redirect";
+                    $Content="<a href='".$url."'>auth</a>";
                     break;
                 default:
                     $Content="message received, waiting for reading by the master";
@@ -131,4 +137,6 @@ class indexModel
 
         var_dump(json_decode($res));
     }
+
+
 }

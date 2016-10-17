@@ -1,9 +1,0 @@
-<xml>
-    <ToUserName><![CDATA[gh_48ce191aced8]]></ToUserName>
-    <FromUserName><![CDATA[ot9f5wg8CWeEKwujnX0uHi1HUXQU]]></FromUserName>
-    <CreateTime>1476630971</CreateTime>
-    <MsgType><![CDATA[text]]></MsgType>
-    <Content><![CDATA[test]]></Content>
-    <MsgId>6342081729132976130</MsgId>
-    <Encrypt><![CDATA[ecnMvIVO7gB1Rs+Q8Wl0g3pO9uDSMnfb9q12BC0JYUifqANYMtLQTVWN+9I0mQc5oYsdCn/RnLpl0pyDzF6tzHdKeNvkrNGY/cfh1oa5OQ7qgydB+AKxpi1j+szCaviLdLW6bmRpU94ExB31Pu/KffdPwAt8kcyQRTsySI/p6TQ7zWY7h+WOwZZU2kEbTOSCPMzJyAvAuigTcrFfbyjW7hZNE4oamWzoZ1HMNlc6JjoM2qtIq5n+cL2fkqp0AMmmUIHe4cczYDLOeFPrWCyx7UfskY6ZgLeqCZc6ayPQ4J0H7MpNgc66asf7K5y8VN5mdcADUpi7BYWWB36MJmHpzqt8L9uWVESOoxyR+WajqYFm2HN27UAPLiyM1e4Xm2+A8n7qmfUWYeLyf7fFNSOc6tnCIu3K0nx8QrhyiM3b4RU=]]></Encrypt>
-</xml>
