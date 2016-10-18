@@ -11,6 +11,38 @@ namespace MVC\Model;
 class indexModel
 {
     /**
+     * @param $postObj
+     */
+    function eventHandler($postObj)
+    {
+        if(isset($postObj->Event))
+        {
+            switch($postObj->Event)
+            {
+                case 'subscribe':
+                    //在数据库中添加该用户的相关信息
+                    $Content="I've seeing you fucking asshole!!";
+
+                    break;
+                case 'unsubscribe':
+                    //数据库中删除该用户相关信息。
+                    break;
+                case 'CLICK':
+                    //CLICK事件，基本都是从自定义菜单中发送
+                    if($postObj->EventKey=='WE_ABOUT')
+                    {
+                        $Content="关于我们！";
+                        $this->replies('news',$postObj);
+                    }
+                    elseif($postObj->EventKey=='WE_NEWEST')
+                    {
+                        $Content="最新发布！";
+                    }
+                    break;
+            }
+        }
+    }
+    /**
      * @param $postObj 服务器发来的被实例化成对象的XML信息
      * @return string 返回需要返回的内容
      * 对服务器发来的消息进行分类，按照内容返回相应的回复内容。
@@ -39,25 +71,6 @@ class indexModel
                     $Content="message received, waiting for reading by the master";
             }
         }
-        elseif(isset($postObj->Event))
-        {
-            switch($postObj->Event)
-            {
-                case 'subscribe':
-                    $Content="I've seeing you fucking asshole!!";
-                    break;
-                case 'CLICK':
-                    if($postObj->EventKey=='WE_ABOUT')
-                    {
-                        $Content="关于我们！";
-                    }
-                    elseif($postObj->EventKey=='WE_NEWEST')
-                    {
-                        $Content="最新发布！";
-                    }
-                    break;
-            }
-        }
         return $Content;
     }
 
@@ -65,7 +78,7 @@ class indexModel
      * @param $type     想要回复的消息类型
      * @param $postObj  服务器发来的被实例化的xml对象
      */
-    function replies($type,$postObj)
+    function replies($type,$postObj,$Content='')
     {
         //自动回复一个消息
         $re_toUserName=$postObj->FromUserName;
@@ -73,9 +86,9 @@ class indexModel
         $time=time();
         switch($type)
         {
+            //回复单文本消息
             case 'text':
                 $MsgType='text';
-                $Content=$this->textHandler($postObj);
                 //回复消息格式
                 $template="<xml>
                 <ToUserName><![CDATA[%s]]></ToUserName>
@@ -86,6 +99,7 @@ class indexModel
                 </xml>";
                 $info=sprintf($template,$re_toUserName,$re_fromUserName,$time,$MsgType,$Content);
                 break;
+            //回复多图文消息
             case 'news':
                 $MsgType='news';
                 //从数据库中获取
@@ -94,7 +108,7 @@ class indexModel
                         'title'=>'weChat developer document',
                         'description'=>'a detailed introduction to teach developer how to use its API',
                         'picurl'=>'http://markzhu.imwork.net/big.png',
-                        'url'=>'http://www.baidu.com'
+                        'url'=>'http://mp.weixin.qq.com/s?__biz=MzI1NjM2MTQ1Nw==&mid=100000003&idx=1&sn=cef3b66d2cc22eb4ffc013310b03acb3&chksm=6a26979d5d511e8bd58f2626078af274caabf45c740ab57c3fd33d92dbf2ec85d0f890b9ba99#rd'
                     ),
                     array(
                         'title'=>'developer document',
@@ -126,24 +140,6 @@ class indexModel
                 break;
         }
         echo $info;
-    }
-
-
-    function weather()
-    {
-        $ch = curl_init();
-        $url = 'http://apis.baidu.com/apistore/weatherservice/cityid?cityid=101010100';
-        $header = array(
-            'apikey: 您自己的apikey',
-        );
-        // 添加apikey到header
-        curl_setopt($ch, CURLOPT_HTTPHEADER  , $header);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
-        // 执行HTTP请求
-        curl_setopt($ch , CURLOPT_URL , $url);
-        $res = curl_exec($ch);
-
-        var_dump(json_decode($res));
     }
 
 }

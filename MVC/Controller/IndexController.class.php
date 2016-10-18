@@ -15,8 +15,7 @@ class IndexController
 //        $index=new indexModel();
 //        $index->sendMsgAll();
 //        $material=new materialModel();
-//        var_export($material->acquireMaterial());
-//        exit();
+//        var_export(json_decode($material->acquireMaterialList('news')));
 //        $this->customMenu();
 //        exit;
         if($this->checkSignature())
@@ -29,16 +28,19 @@ class IndexController
      */
     public function responseMsg()
     {
+        //获得发来的XML
         $postStr=file_get_contents('php://input');
         file_put_contents(getcwd().'/msg',$postStr);
         if(!empty($postStr))
         {
             $postObj=simplexml_load_string($postStr);
             $indexModel=new indexModel();
+            //根据消息类型判断去向
             switch(strtolower($postObj->MsgType))
             {
-
                 case "event":
+                    $indexModel->eventHandler($postObj);
+                    break;
                 case "text":
                     //自动回复一个消息
                     if(strtolower(trim($postObj->Content))=='news')
@@ -53,6 +55,37 @@ class IndexController
             }
         }
     }
+    //验证数据是否来自微信服务器
+    public function checkSignature()
+    {
+        $signature=$_GET['signature'];
+        $timestamp=$_GET['timestamp'];
+        $nonce=$_GET['nonce'];
+        $echoStr=$_GET['echostr'];
+        $token='markzhu';
+        $tempArr=array($token,$timestamp,$nonce);
+        sort($tempArr);
+        $tempStr=sha1(implode('',$tempArr));
+        file_put_contents("weixin",date('Y-m-d H:i:s').$signature."|".$timestamp."|".$nonce."|".$echoStr.PHP_EOL);
+        if($tempStr==$signature)
+        {
+            return true;
+        }
+        return false;
+    }
+    //这个函数用于第一次验证服务器有效性
+    public function valid()
+    {
+        $echoStr = $_GET["echostr"];
+
+        //valid signature , option
+        if($this->checkSignature())
+        {
+            echo $echoStr;
+            exit;
+        }
+    }
+
     public function customMenu()
     {
         $url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.getWeChatToken();
@@ -94,35 +127,5 @@ class IndexController
         ]
     }';
         echo(httpPOST($url,$menuData));
-    }
-    //验证数据是否来自微信服务器
-    public function checkSignature()
-    {
-        $signature=$_GET['signature'];
-        $timestamp=$_GET['timestamp'];
-        $nonce=$_GET['nonce'];
-        $echoStr=$_GET['echostr'];
-        $token='markzhu';
-        $tempArr=array($token,$timestamp,$nonce);
-        sort($tempArr);
-        $tempStr=sha1(implode('',$tempArr));
-        file_put_contents("weixin",date('Y-m-d H:i:s').$signature."|".$timestamp."|".$nonce."|".$echoStr.PHP_EOL);
-        if($tempStr==$signature)
-        {
-            return true;
-        }
-        return false;
-    }
-    //这个函数用于第一次验证服务器有效性
-    public function valid()
-    {
-        $echoStr = $_GET["echostr"];
-
-        //valid signature , option
-        if($this->checkSignature())
-        {
-            echo $echoStr;
-            exit;
-        }
     }
 }
