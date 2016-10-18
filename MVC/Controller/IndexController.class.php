@@ -10,29 +10,18 @@ class IndexController
 {
     public function index()
     {
-        $material=new materialModel();
-        echo $material->addImage();
-        exit();
+        //自定义菜单设置
+//        $this->customMenu();
+//        $index=new indexModel();
+//        $index->sendMsgAll();
+//        $material=new materialModel();
+//        var_export($material->acquireMaterial());
+//        exit();
 //        $this->customMenu();
 //        exit;
-        $signature=$_GET['signature'];
-        $timestamp=$_GET['timestamp'];
-        $nonce=$_GET['nonce'];
-        $echoStr=$_GET['echostr'];
-        $token='markzhu';
-        $tempArr=array($token,$timestamp,$nonce);
-        sort($tempArr);
-        $tempStr=sha1(implode('',$tempArr));
-        file_put_contents("weixin",date('Y-m-d H:i:s').$signature."|".$timestamp."|".$nonce."|".$echoStr.PHP_EOL);
-        if($tempStr==$signature && $echoStr)
+        if($this->checkSignature())
         {
-            echo $echoStr;
-            exit;
-        }
-        else
-        {
-//            echo getWeChatToken();
-//            $this->responseMsg();
+            $this->responseMsg();
         }
     }
     /**
@@ -66,37 +55,74 @@ class IndexController
     }
     public function customMenu()
     {
-        $token=json_decode(file_get_contents(getcwd().'/access_token'),true)['access_token'];
-        $url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$token;
+        $url='https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.getWeChatToken();
         $menuData='
     {
-     "button":[
-     {	
-          "type":"click",
-          "name":"今日歌曲",
-          "key":"V1001_TODAY_MUSIC"
-      },
-      {
-           "name":"菜单",
-           "sub_button":[
-           {	
-               "type":"view",
-               "name":"搜索",
-               "url":"http://www.soso.com/"
+        "button":
+        [
+            {	
+                "type":"click",
+                "name":"最新发布",
+                "key":"WE_NEWEST"
             },
             {
-               "type":"view",
-               "name":"视频",
-               "url":"http://v.qq.com/"
+                "name":"菜单",
+                "sub_button":
+                [
+                    {	
+                        "type":"view",
+                        "name":"搜索",
+                        "url":"http://www.soso.com/"
+                    },
+                    {
+                        "type":"view",
+                        "name":"视频",
+                        "url":"http://v.qq.com/"
+                    },
+                    {
+                        "type":"click",
+                        "name":"赞一下我们",
+                        "key":"V1001_GOOD"
+                    }
+                ]
             },
             {
-               "type":"click",
-               "name":"赞一下我们",
-               "key":"V1001_GOOD"
-            }]
-       }]
- }';
-        echo($this->httpPOST($url,$menuData));
+                "type":"click",
+                "name":"关于我们",
+                "key":"WE_ABOUT"
+            }
+        ]
+    }';
+        echo(httpPOST($url,$menuData));
     }
+    //验证数据是否来自微信服务器
+    public function checkSignature()
+    {
+        $signature=$_GET['signature'];
+        $timestamp=$_GET['timestamp'];
+        $nonce=$_GET['nonce'];
+        $echoStr=$_GET['echostr'];
+        $token='markzhu';
+        $tempArr=array($token,$timestamp,$nonce);
+        sort($tempArr);
+        $tempStr=sha1(implode('',$tempArr));
+        file_put_contents("weixin",date('Y-m-d H:i:s').$signature."|".$timestamp."|".$nonce."|".$echoStr.PHP_EOL);
+        if($tempStr==$signature)
+        {
+            return true;
+        }
+        return false;
+    }
+    //这个函数用于第一次验证服务器有效性
+    public function valid()
+    {
+        $echoStr = $_GET["echostr"];
 
+        //valid signature , option
+        if($this->checkSignature())
+        {
+            echo $echoStr;
+            exit;
+        }
+    }
 }

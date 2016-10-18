@@ -15,7 +15,6 @@ class indexModel
      * @return string 返回需要返回的内容
      * 对服务器发来的消息进行分类，按照内容返回相应的回复内容。
      */
-
     function textHandler($postObj)
     {
         if(isset($postObj->Content))
@@ -46,6 +45,16 @@ class indexModel
             {
                 case 'subscribe':
                     $Content="I've seeing you fucking asshole!!";
+                    break;
+                case 'CLICK':
+                    if($postObj->EventKey=='WE_ABOUT')
+                    {
+                        $Content="关于我们！";
+                    }
+                    elseif($postObj->EventKey=='WE_NEWEST')
+                    {
+                        $Content="最新发布！";
+                    }
                     break;
             }
         }
@@ -136,6 +145,5 @@ class indexModel
 
         var_dump(json_decode($res));
     }
-
 
 }

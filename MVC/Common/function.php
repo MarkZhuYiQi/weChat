@@ -37,14 +37,14 @@ function httpPOST($url,$postParam=false,$header=false)
     {
         foreach($postParam as $key=>$value)
         {
-            if(strpos($value,'@'))
+            if(strpos($value,'@')===0)
             {
                 $value=ltrim($value,'@');
                 $postParam[$key]=new CURLFile($value);
             }
         }
     }
-    
+
     curl_setopt($ch,CURLOPT_RETURNTRANSFER,TRUE);
     curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,5000);
     if($postParam){
