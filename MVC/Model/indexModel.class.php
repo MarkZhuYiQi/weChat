@@ -36,7 +36,7 @@ class indexModel
                     }
                     elseif($postObj->EventKey=='WE_NEWEST')
                     {
-                        $Content="最新发布！";
+                        $this->replies('news',$postObj);
                     }
                     break;
             }
@@ -57,6 +57,7 @@ class indexModel
                     $Content='your weChat openID: '.$postObj->FromUserName.PHP_EOL
                         .'my Account: '.$postObj->ToUserName.PHP_EOL
                         .'send Time: '.date('Y-m-d H:i:s',$postObj->CreateTime).PHP_EOL;
+                    $this->replies('text',$postObj,$Content);
                     break;
                 case 'link':
                     $Content="<a href='http://markzhu.imwork.net/demo/index.html'>demo</a>";
@@ -71,7 +72,7 @@ class indexModel
                     $Content="message received, waiting for reading by the master";
             }
         }
-        return $Content;
+        $this->replies('text',$postObj,$Content);
     }
 
     /**

@@ -1,9 +1,7 @@
 <?php
+require(getcwd()."/MVC/Conf/config.php");
 require(getcwd()."/MVC/Common/function.php");
-use MVC\Controller\IndexController;
-//require("MVC/Controller/IndexController.class.php");
-//require("MVC/Model/indexModel.class.php");
-//require("MVC/Model/materialModel.class.php");
+use MVC\Controller\indexController;
 function __autoload($className)
 {
     $className=str_replace('\\','/',$className);
@@ -11,6 +9,15 @@ function __autoload($className)
     {
         require_once (getcwd().'/'.$className.'.class.php');
     }
+    exit(getcwd().'/'.$className.'.class.php');
 }
-$C=new IndexController();
-$C->index();
+$get_control=isset($_GET['control'])?trim($_GET['control'].'Controller'):'indexController';
+$get_action=isset($_GET['action'])?trim($_GET['action']):'index';
+$control=new $get_control();
+if($method_exists($control,$get_action))
+{
+    /**
+     * 这里可以进一步通过注释给方法加上权限
+     */
+    $control->$get_action();
+}

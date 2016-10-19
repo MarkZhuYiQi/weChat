@@ -6,7 +6,7 @@ use MVC\Model\materialModel;
 //测试账号的信息
 define('APPID','wx9a7e00ceaf1818fc');
 define('APPSECRET','be27d8bf1bcdde5065454e943341268c');
-class IndexController
+class indexController
 {
     public function index()
     {
@@ -18,10 +18,11 @@ class IndexController
 //        var_export(json_decode($material->acquireMaterialList('news')));
 //        $this->customMenu();
 //        exit;
-        if($this->checkSignature())
-        {
+
+//        if($this->checkSignature())
+//        {
             $this->responseMsg();
-        }
+//        }
     }
     /**
      * 回复类
@@ -43,14 +44,7 @@ class IndexController
                     break;
                 case "text":
                     //自动回复一个消息
-                    if(strtolower(trim($postObj->Content))=='news')
-                    {
-                        $indexModel->replies('news',$postObj);
-                    }
-                    else
-                    {
-                        $indexModel->replies('text',$postObj);
-                    }
+                    $indexModel->textHandler($postObj);
                 break;
             }
         }
