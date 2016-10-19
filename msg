@@ -1,0 +1,1 @@
+<xml><URL><![CDATA[markzhu.imwork.net]]></URL><ToUserName><![CDATA[red]]></ToUserName><FromUserName><![CDATA[red]]></FromUserName><CreateTime>123123</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[link]]></Content><MsgId>123123</MsgId></xml>

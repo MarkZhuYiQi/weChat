@@ -5,6 +5,17 @@
  * Date: 10/17/16
  * Time: 8:45 PM
  */
+
+function load_model($mName,$dsn=DB_DSN)
+{
+    return new model($mName,$dsn);
+}
+
+function load_Lib($lib,$libName)
+{
+    require("Lib/".$lib.'/'.$libName.'.php');
+}
+
 function httpGET($url)
 {
     $ch = curl_init();

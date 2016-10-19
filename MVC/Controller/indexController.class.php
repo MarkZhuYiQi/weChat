@@ -1,5 +1,5 @@
 <?php
-namespace MVC\Controller;
+//namespace MVC\Controller;
 use MVC\Model\indexModel;
 use MVC\Model\materialModel;
 
@@ -21,6 +21,7 @@ class indexController
 
 //        if($this->checkSignature())
 //        {
+        echo "123123132";
             $this->responseMsg();
 //        }
     }
