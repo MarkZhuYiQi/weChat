@@ -19,7 +19,7 @@ class model
     {
         //mName是要查询的表名
         //NOTORM用的初始化字符串
-        $this->dsn=$dsn;
+        $this->_dsn=$dsn;
         if($dsn==DB_DSN)
         {
             $this->_modelName=DB_PREFIX.'_'.$mName;
@@ -34,15 +34,21 @@ class model
     {
         load_Lib('db','NotORM');        //将notorm.php加载进来
         $pdo=new \PDO($this->_dsn,DB_USER,DB_PWD);
-        $pdo->query('set names utf8');
-        $structure=new NotORM_Structure_Convention(
+//        $pdo->query('set names utf8');
+        $pdo->query("set names time_zone = '+8:00'");
+        $structure=new \NotORM_Structure_Convention(
             $primary='id',          //这里告诉NotORM我们的主键都是ID这种英文单词
             $foreign='%sid',        //同理，外键都是外表名+id,这很重要，否则NotORM拼接SQL都会拼错
-            $table='%s',
+            $table='%s',            
             $prefix=''              //表前缀
         );
-        $pdo->exec("set names utf8");
-        $this->_db=new NotORM($pdo,$structure);  //初始化
+//        $date=$pdo->query("show variables like '%time_zone%'");
+//        foreach($date as $row){
+//            var_export($row);
+//        }
+//        exit;
+//        $pdo->exec("set names utf8");
+        $this->_db=new \NotORM($pdo,$structure);  //初始化
     }
 
     function load($where)           //加载表格
@@ -68,14 +74,20 @@ class model
     {
         return $this->_result;
     }
-    function insert($array)
+    function insert($array,$tbName)
     {
         return $this->_db->$tbName()->insert($array);
     }
-    function update($array)
+    function update($array,$tbName)
     {
         return $this->_db->$tbName()->update($array);
     }
+    function delete($where)
+    {
+        $this->load($where);
+        $this->_result->delete();
+    }
+
     /**
      * @param $pname
      * @return bool

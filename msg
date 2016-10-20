@@ -1,1 +1,7 @@
-<xml><URL><![CDATA[markzhu.imwork.net]]></URL><ToUserName><![CDATA[red]]></ToUserName><FromUserName><![CDATA[red]]></FromUserName><CreateTime>123123</CreateTime><MsgType><![CDATA[text]]></MsgType><Content><![CDATA[link]]></Content><MsgId>123123</MsgId></xml>
+<xml><ToUserName><![CDATA[gh_fc5e96940e45]]></ToUserName>
+<FromUserName><![CDATA[o8SEYwhrbSaCIpozo5P1uPeTBoCc]]></FromUserName>
+<CreateTime>1476954802</CreateTime>
+<MsgType><![CDATA[event]]></MsgType>
+<Event><![CDATA[unsubscribe]]></Event>
+<EventKey><![CDATA[]]></EventKey>
+</xml>

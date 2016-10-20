@@ -2,13 +2,13 @@
 /**
  * Created by PhpStorm.
  * User: red
- * Date: 10/16/16
- * Time: 10:51 AM
+ * Date: 10/20/16
+ * Time: 11:09 AM
  */
-namespace MVC\Model;
 
+namespace MVC\Controller;
 
-class indexModel
+class replyController
 {
     /**
      * @param $postObj
@@ -17,21 +17,24 @@ class indexModel
     {
         if(isset($postObj->Event))
         {
+            $m=load_model('user');
             switch($postObj->Event)
             {
                 case 'subscribe':
                     //在数据库中添加该用户的相关信息
                     $Content="I've seeing you fucking asshole!!";
+//                    'we_subscribeDate'=>date('Y-m-d H:i:s',get_object_vars($postObj)['CreateTime'])
                     $insertRow=array(
-                        'we_openid'=>$postObj->FromUserName
-                        'we_subscribeDate'=>$postObj->
+                        'we_openid'=>(string)$postObj->FromUserName,
+                        'we_subscribeDate'=>get_object_vars($postObj)['CreateTime']
                     );
-                    var_dump($insertRow);
-                    exit();
+//                    $insertRow=array('we_openid'=>'123123123','we_subscribeDate'=>'123123123');
+                    $m->insert($insertRow,'we_user');
                     $this->replies('text',$postObj,$Content);
                     break;
                 case 'unsubscribe':
                     //数据库中删除该用户相关信息。
+                    $m->delete(" we_openid='".(string)$postObj->FromUserName."' ");
                     break;
                 case 'CLICK':
                     //CLICK事件，基本都是从自定义菜单中发送
@@ -148,5 +151,4 @@ class indexModel
         }
         echo $info;
     }
-
 }

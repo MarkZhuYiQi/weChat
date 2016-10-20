@@ -5,6 +5,8 @@
  * Date: 10/17/16
  * Time: 8:45 PM
  */
+use MVC\Model\model;
+
 
 function load_model($mName,$dsn=DB_DSN)
 {
@@ -13,7 +15,7 @@ function load_model($mName,$dsn=DB_DSN)
 
 function load_Lib($lib,$libName)
 {
-    require("Lib/".$lib.'/'.$libName.'.php');
+    require("MVC/Lib/".$lib.'/'.$libName.'.php');
 }
 
 function httpGET($url)

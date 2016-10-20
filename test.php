@@ -15,7 +15,9 @@ define("APPSECRET","be27d8bf1bcdde5065454e943341268c");
  * access_token:全局接口调用唯一凭据，至少512字符空间，有效期为2小时
  * expire_in:返回一个0-7200之间的数字，超过7200及2小时token失效，需要更新
  */
-get_access_token();
+
+
+//get_access_token();
 //get_weixin_ip();
 
 function get_access_token()

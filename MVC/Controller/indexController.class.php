@@ -2,6 +2,7 @@
 //namespace MVC\Controller;
 use MVC\Model\indexModel;
 use MVC\Model\materialModel;
+use MVC\Controller\replyController;
 
 //测试账号的信息
 define('APPID','wx9a7e00ceaf1818fc');
@@ -21,7 +22,6 @@ class indexController
 
 //        if($this->checkSignature())
 //        {
-        echo "123123132";
             $this->responseMsg();
 //        }
     }
@@ -36,16 +36,16 @@ class indexController
         if(!empty($postStr))
         {
             $postObj=simplexml_load_string($postStr);
-            $indexModel=new indexModel();
+            $reply=new replyController();
             //根据消息类型判断去向
             switch(strtolower($postObj->MsgType))
             {
                 case "event":
-                    $indexModel->eventHandler($postObj);
+                    $reply->eventHandler($postObj);
                     break;
                 case "text":
                     //自动回复一个消息
-                    $indexModel->textHandler($postObj);
+                    $reply->textHandler($postObj);
                 break;
             }
         }
