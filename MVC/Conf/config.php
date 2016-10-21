@@ -9,3 +9,13 @@
     define('DB_PORT','3306');           // 数据库端口
     define("DB_DSN","mysql:host=localhost;dbname=weChat");     //NotORM初始化
     define('','');
+
+
+
+    define("CACHE_IP","127.0.0.1");
+    define("CACHE_PORT","11211");       //memcache默认端口
+
+
+    define('CURRENT_VIEWPATH','v1');    //当前视图目录
+    define('CURRENT_VIEWPATH_ADMIN','');    //当前管理视图目录
+    define('CACHE_PATH','cache/');

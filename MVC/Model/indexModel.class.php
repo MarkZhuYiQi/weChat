@@ -66,7 +66,7 @@ class indexModel
                     $this->replies('text',$postObj,$Content);
                     break;
                 case 'link':
-                    $Content="<a href='http://markzhu.imwork.net/demo/index.html'>demo</a>";
+                    $Content="<a href='http://markzhu.imwork.net/demo/index.tpl'>demo</a>";
                     break;
                 case 'auth':
                     $scope='snsapi_userinfo';

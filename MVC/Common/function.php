@@ -84,3 +84,34 @@ function getWeChatToken()
     }
     return $data->access_token;
 }
+function get_cache($key)
+{
+    $m=new Memcache();
+    $m->connect(CACHE_IP,CACHE_PORT);
+    return $m->get($key);
+}
+function set_cache($key,$value,$expire)
+{
+    $m=new Memcache();
+    $m->connect(CACHE_IP,CACHE_PORT);
+    return $m->set($key,$value,0,$expire);
+}
+
+
+
+
+
+
+$foreach_id=array();        //存放每个foreach的唯一标识符
+/**
+ * @param $match
+ * @return string
+ * 该函数是用于给每个foreach添加唯一标示符
+ */
+function foreachCallBack($match){
+//    $id=md5(uniqid());        //这种方案在高并发状态下还是会重复，我觉得还是rand好点
+    $id=md5(rand());        //这种方案在高并发状态下还是会重复，我觉得还是rand好点
+    global $foreach_id;
+    $foreach_id[]=$id;
+    return $match[1].":".$match[2].":".$id;
+}
