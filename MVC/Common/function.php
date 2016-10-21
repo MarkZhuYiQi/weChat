@@ -102,6 +102,11 @@ function set_cache($key,$value,$expire)
 
 
 
+
+
+
+
+
 $foreach_id=array();        //存放每个foreach的唯一标识符
 /**
  * @param $match

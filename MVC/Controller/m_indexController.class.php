@@ -13,7 +13,7 @@ class m_indexController extends _Main
 {
     public function index()
     {
+        if(!the_user())
         $this->setViewName('index');
     }
-
 }

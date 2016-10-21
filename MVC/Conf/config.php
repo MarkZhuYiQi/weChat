@@ -18,4 +18,6 @@
 
     define('CURRENT_VIEWPATH','v1');    //当前视图目录
     define('CURRENT_VIEWPATH_ADMIN','');    //当前管理视图目录
-    define('CACHE_PATH','cache/');
+    define('CACHE_PATH','cache/');      //缓存地址
+
+    

@@ -7,6 +7,7 @@
     <script src="MVC/View/v1/js/jquery-3.1.1.js"></script>
     <script src="MVC/View/v1/plugins/easyui/jquery.easyui.min.js"></script>
     <link rel="stylesheet" href="MVC/View/v1/plugins/easyui/themes/bootstrap/easyui.css">
+    <link rel="stylesheet" href="MVC/View/v1/plugins/easyui/themes/icon.css">
     <!--<link rel="stylesheet" href="/ecs/cssb/icon.css">-->
 </head>
 <body class="easyui-layout">
