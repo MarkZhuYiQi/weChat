@@ -32,7 +32,7 @@
             remember=1;
         }
         $.post(
-            "",              //这里写URL
+            "?control=member&action=login_action",              //这里写URL
             {
                 "username":$('#userName').val(),
                 "password":$('#password').val(),
@@ -40,14 +40,15 @@
             },
             function (result)
             {
-                if(result==1)
-                {
-                    window.location.href="";        //重载页面
-                }
-                else
-                {
-                    $.messager.alert('weChat Login','userName or Password Error!','error');
-                }
+                $.messager.alert('weChat Login',result,'error');
+//                if(result==1)
+//                {
+//                    window.location.href="";        //重载页面
+//                }
+//                else
+//                {
+//                    $.messager.alert('weChat Login','userName or Password Error!','error');
+//                }
             }
         )
     }

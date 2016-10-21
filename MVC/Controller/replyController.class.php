@@ -65,7 +65,7 @@ class replyController
                 case 'test':
                     $Content='your weChat openID: '.$postObj->FromUserName.PHP_EOL
                         .'my Account: '.$postObj->ToUserName.PHP_EOL
-                        .'send Time: '.date('Y-m-d H:i:s',$postObj->CreateTime).PHP_EOL;
+                        .'send Time: '.date('Y-m-d H:i:s',(string)$postObj->CreateTime).PHP_EOL;
                     $this->replies('text',$postObj,$Content);
                     break;
                 case 'link':

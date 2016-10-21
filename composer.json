@@ -1,0 +1,25 @@
+{
+    "name": "wechat/ruiyundu",
+    "type": "project",
+    "authors": [
+        {
+            "name": "MarkZhuYiQi",
+            "email": "zhuyiqi_026@163.com"
+        }
+    ],
+    "require": {
+        "vrana/notorm":"dev-master"
+    },
+    "autoload":{
+        "files":["MVC/Common/function.php","MVC/Common/encrypt.php","MVC/Conf/config.php"],
+        "psr-4":{
+            "MVC\\Controller\\":"/"
+        }
+    },
+    "repositories": {
+        "packagist": {
+            "type": "composer",
+            "url": "https://packagist.phpcomposer.com"
+        }
+    }
+}

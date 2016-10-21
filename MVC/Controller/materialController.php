@@ -7,7 +7,7 @@
  */
 
 namespace MVC\Controller;
-use MVC\Model\materialModel;
+//use MVC\Model\materialModel;
 
 class materialController
 {

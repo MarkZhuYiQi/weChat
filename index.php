@@ -1,10 +1,9 @@
 <?php
 //use MVC\Controller\indexController;
-
+date_default_timezone_set('Asia/Shanghai');
 require(getcwd()."/MVC/Conf/config.php");
 require(getcwd()."/MVC/Common/function.php");
 require(getcwd()."/MVC/Controller/indexController.class.php");
-
 function __autoload($className)
 {
     $className=str_replace('\\','/',$className);

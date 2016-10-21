@@ -97,6 +97,44 @@ function set_cache($key,$value,$expire)
     return $m->set($key,$value,0,$expire);
 }
 
+/**
+ * @param $pname 想要获取的值对应的key
+ * @param string $method 获取的方法，默认是GET，还有POST
+ * @return bool|mixed|string 返回经过处理的值
+ */
+function GET($pname,$method='get')
+{
+    $plist=$method=='get'?$_GET:$_POST;
+    if(isset($plist[$pname]))
+    {
+        $getValue=trim($plist[$pname]);
+        $getValue=strip_tags($getValue);        //去除HTML和php标记
+        $getValue=addslashes($getValue);        //预定义字符转义
+        $getValue=str_replace(array('gcd'),'',$getValue);
+        return $getValue;
+    }
+    else
+    {
+        return false;
+    }
+}
+function IP(){
+    if(!empty($_SERVER["HTTP_CLIENT_IP"])) {
+        $cip = $_SERVER["HTTP_CLIENT_IP"];
+    }
+    elseif(!empty($_SERVER["HTTP_X_FORWARDED_FOR"])){
+        $cip=$_SERVER["HTTP_X_FORWARDED_FOR"];
+    }
+    elseif(!empty($_SERVER["REMOTE_ADDR"])){
+        $cip=$_SERVER["REMOTE_ADDR"];
+    }else{
+        $cip="";
+    }
+    return $cip;
+}
+
+
+
 
 
 

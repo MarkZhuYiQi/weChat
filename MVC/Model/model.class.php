@@ -34,19 +34,17 @@ class model
     {
         load_Lib('db','NotORM');        //将notorm.php加载进来
         $pdo=new \PDO($this->_dsn,DB_USER,DB_PWD);
-//        $pdo->query('set names utf8');
-        $pdo->query("set names time_zone = '+8:00'");
+        $pdo->query("set time_zone = '+08:00'");
         $structure=new \NotORM_Structure_Convention(
             $primary='id',          //这里告诉NotORM我们的主键都是ID这种英文单词
             $foreign='%sid',        //同理，外键都是外表名+id,这很重要，否则NotORM拼接SQL都会拼错
             $table='%s',            
             $prefix=''              //表前缀
         );
-//        $date=$pdo->query("show variables like '%time_zone%'");
-//        foreach($date as $row){
-//            var_export($row);
-//        }
-//        exit;
+        $date=$pdo->query("select `we_subscribeDate` from `we_user` where `we_id`=4  ");
+        foreach($date as $row){
+            $date=$row['we_subscribeDate'];
+        }
 //        $pdo->exec("set names utf8");
         $this->_db=new \NotORM($pdo,$structure);  //初始化
     }

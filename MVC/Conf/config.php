@@ -20,4 +20,7 @@
     define('CURRENT_VIEWPATH_ADMIN','');    //当前管理视图目录
     define('CACHE_PATH','cache/');      //缓存地址
 
+
+
+    define('BACKGROUND_ENCRYPTKEY','LoginRuiYunDuWeChatBackground@026!');
     
