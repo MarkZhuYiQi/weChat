@@ -18,6 +18,18 @@ function load_Lib($lib,$libName)
     require("MVC/Lib/".$lib.'/'.$libName.'.php');
 }
 
+function the_user()
+{
+    if(isset($_COOKIE[BACKGROUND_LOGINKEY]))
+    {
+        $getCookie=unserialize(myDecrypt($_COOKIE[BACKGROUND_LOGINKEY]));
+        var_dump($getCookie);
+    }
+}
+
+
+
+
 function httpGET($url)
 {
     $ch = curl_init();

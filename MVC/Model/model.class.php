@@ -32,7 +32,6 @@ class model
     }
     function modelInit()
     {
-        load_Lib('db','NotORM');        //将notorm.php加载进来
         $pdo=new \PDO($this->_dsn,DB_USER,DB_PWD);
         $pdo->query("set time_zone = '+08:00'");
         $structure=new \NotORM_Structure_Convention(

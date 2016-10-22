@@ -40,7 +40,7 @@
             },
             function (result)
             {
-                $.messager.alert('weChat Login',result,'error');
+//                $.messager.alert('weChat Login',result,'error');
 //                if(result==1)
 //                {
 //                    window.location.href="";        //重载页面

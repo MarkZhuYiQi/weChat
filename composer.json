@@ -12,9 +12,7 @@
     },
     "autoload":{
         "files":["MVC/Common/function.php","MVC/Common/encrypt.php","MVC/Conf/config.php"],
-        "psr-4":{
-            "MVC\\Controller\\":"/"
-        }
+        "classmap":["MVC/Controller","MVC/Model"]
     },
     "repositories": {
         "packagist": {
