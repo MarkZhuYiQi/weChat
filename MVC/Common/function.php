@@ -22,13 +22,15 @@ function the_user()
 {
     if(isset($_COOKIE[BACKGROUND_LOGINKEY]))
     {
-        $getCookie=unserialize(myDecrypt($_COOKIE[BACKGROUND_LOGINKEY]));
-        var_dump($getCookie);
+        $stdClass=unserialize(myDecrypt($_COOKIE[BACKGROUND_LOGINKEY],BACKGROUND_ENCRYPTKEY));
+        if($stdClass && $stdClass->userName!=''&&$stdClass->user_loginIP==IP())
+        {
+            return $stdClass;
+        }
+        return false;
     }
+    return false;
 }
-
-
-
 
 function httpGET($url)
 {
@@ -144,29 +146,28 @@ function IP(){
     }
     return $cip;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-$foreach_id=array();        //存放每个foreach的唯一标识符
-/**
- * @param $match
- * @return string
- * 该函数是用于给每个foreach添加唯一标示符
- */
-function foreachCallBack($match){
-//    $id=md5(uniqid());        //这种方案在高并发状态下还是会重复，我觉得还是rand好点
-    $id=md5(rand());        //这种方案在高并发状态下还是会重复，我觉得还是rand好点
-    global $foreach_id;
-    $foreach_id[]=$id;
-    return $match[1].":".$match[2].":".$id;
+function objToArr($obj)
+{
+    $res=[];
+    foreach($obj as $r)
+    {
+        foreach($r as $key=>$value)
+        {
+            $tempArr[$key]=$value;
+        }
+        array_push($res,$tempArr);
+    }
+    return $res;
 }
+
+
+
+
+
+
+
+
+
+
+
+

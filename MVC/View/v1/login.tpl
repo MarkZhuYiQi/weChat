@@ -41,14 +41,14 @@
             function (result)
             {
 //                $.messager.alert('weChat Login',result,'error');
-//                if(result==1)
-//                {
-//                    window.location.href="";        //重载页面
-//                }
-//                else
-//                {
-//                    $.messager.alert('weChat Login','userName or Password Error!','error');
-//                }
+                if(result==1)
+                {
+                    window.location.href="";        //重载页面
+                }
+                else
+                {
+                    $.messager.alert('weChat Login','userName or Password Error!','error');
+                }
             }
         )
     }

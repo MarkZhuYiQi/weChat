@@ -12,7 +12,6 @@ function __autoload($className)
         require_once (getcwd().'/'.$className.'.class.php');
     }
 }
-
 $get_control=isset($_GET['control'])?trim($_GET['control'].'Controller'):'indexController';
 $get_action=isset($_GET['action'])?trim($_GET['action']):'index';
 $control=new $get_control();

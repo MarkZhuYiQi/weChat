@@ -191,9 +191,16 @@ class _Main
          *      同时原来的数组依然做保留，也就等于说有两个名字不同但是内容完全相同的数组。
          * 为了区别同一页面不同的foreach需要给每个foreach加上唯一标识符
          */
-        global $foreach_id;         //外部变量
+        $foreach_id=array();        //存放每个foreach的唯一标识符
         //逐个替换页面中的标记并做唯一标识符
-        $tplContent=preg_replace_callback("/(foreach):([a-zA-Z]{1,30})/is","foreachCallBack",$tplContent);
+        $tplContent=preg_replace_callback("/(foreach):([a-zA-Z]{1,30})/is",function($match)
+        {
+            //    $id=md5(uniqid());        //这种方案在高并发状态下还是会重复，我觉得还是rand好点
+            $id=md5(rand());        //这种方案在高并发状态下还是会重复，我觉得还是rand好点
+            $foreach_id[]=$id;      //给每个foreach添加唯一标示符
+            return $match[1].":".$match[2].":".$id;
+        },$tplContent);
+
         //有几个foreach循环就会循环几次
         foreach($foreach_id as $fid){
             //有几个foreach就循环取出几个。找出对应id的foreach
@@ -222,5 +229,18 @@ class _Main
 
 }
 
+$foreach_id=array();        //存放每个foreach的唯一标识符
+/**
+ * @param $match
+ * @return string
+ * 该函数是用于给每个foreach添加唯一标示符
+ */
+function callback($match){
+//    $id=md5(uniqid());        //这种方案在高并发状态下还是会重复，我觉得还是rand好点
+    $id=md5(rand());        //这种方案在高并发状态下还是会重复，我觉得还是rand好点
+    global $foreach_id;
+    $foreach_id[]=$id;
+    return $match[1].":".$match[2].":".$id;
+};
 
 

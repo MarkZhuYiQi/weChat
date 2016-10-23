@@ -29,6 +29,7 @@ class memberController
         {
             $db_password=$r['admin_password'];
         }
+//        exit(myCrypt($get_password,USER_PASSWORD_CRYPT_KEY));
         if($get_password)
         {
             if($db_password==myCrypt($get_password,USER_PASSWORD_CRYPT_KEY))

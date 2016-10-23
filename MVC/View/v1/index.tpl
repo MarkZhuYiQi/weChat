@@ -7,14 +7,12 @@
 <script>
     $(document).ready(function(){
         $("#mytree").tree({
-            url:"/ecs/m_index/tree/",
+            url:"?control=m_index&action=tree",
             animate:true,
             onClick:function(node){
                 if(node.attributes && node.attributes.url) {
                     addTab(node.text,node.attributes.url);
-
-//                    $("#mainframe").attr("src", node.attributes.url);
-
+                    $("#mainframe").attr("src", node.attributes.url);
                 }
             }
         });
@@ -60,7 +58,7 @@
         </div>
     </div>
 </div>
-<div data-options="region:'center',title:'Main Title',iconCls:'icon-ok'">
+<div data-options="region:'center',title:'Detail Informations',iconCls:'icon-blank'">
 
     <div class="easyui-tabs" style="width:100%;height:100%" id="mainframe" >
 

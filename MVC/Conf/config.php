@@ -22,6 +22,6 @@
 
 
 
-    define('BACKGROUND_ENCRYPTKEY','LoginRuiYunDuBackground@026!');   //加密解密用的秘钥
+    define('BACKGROUND_ENCRYPTKEY','LogWeChatRuiYunDuBackground@026!');   //cookie加密解密用的秘钥
     define('BACKGROUND_LOGINKEY','weChatBackgroundLogin');      //后台cookie登录名称
-    define('USER_PASSWORD_CRYPT_KEY','AccountInRuiYunDu@163.com'); //用户密码秘钥
+    define('USER_PASSWORD_CRYPT_KEY','AccountBelongsToRuiYunDu@163.com'); //用户密码秘钥
