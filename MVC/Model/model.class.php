@@ -63,8 +63,8 @@ class model
             $this->_result=$this->_db->$tbName()->select($cols);
         }else{
             $this->_result=$this->_db->$tbName()->select($cols)->where($where);
-            if($order=="")$this->_result->order($order);
-            if($limit=="")$this->_result->limit($order);
+            if($order!="")$this->_result->order($order);
+            if($limit!="")$this->_result->limit($limit);
         }
     }
     function all()
@@ -78,6 +78,10 @@ class model
     function update($array,$tbName)
     {
         return $this->_db->$tbName()->update($array);
+    }
+    function insert_update($array,$tbName)
+    {
+        echo $this->_db->$tbName()->update($array);
     }
     function delete($where)
     {

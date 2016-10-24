@@ -149,11 +149,12 @@ function IP(){
 function objToArr($obj)
 {
     $res=[];
-    foreach($obj as $r)
+    foreach($obj as $k=>$r)
     {
+        $id=$r['id'];
         foreach($r as $key=>$value)
         {
-            $tempArr[$key]=$value;
+            $tempArr[$key]=$id.'. '.$value;
         }
         array_push($res,$tempArr);
     }
