@@ -146,7 +146,7 @@ function IP(){
     }
     return $cip;
 }
-function objToArr($obj)
+function objToArr($obj,$getId=false)
 {
     $res=[];
     foreach($obj as $k=>$r)
@@ -154,7 +154,12 @@ function objToArr($obj)
         $id=$r['id'];
         foreach($r as $key=>$value)
         {
-            $tempArr[$key]=$id.'. '.$value;
+            if($getId)
+            {
+                $tempArr[$key]=$id.'. '.$value;
+            }else{
+                $tempArr[$key]=$value;
+            }
         }
         array_push($res,$tempArr);
     }

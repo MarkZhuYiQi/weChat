@@ -46,9 +46,10 @@ class menuController extends _Main
         $type=load_model('menu_type');
         $type->loadAll();
         $return = $type->all();
-        $res=objToArr($return);
+        $res=objToArr($return,true);
         if($get)
         {
+            $res=objToArr($return);
             return $res;
         }
         else
@@ -61,7 +62,7 @@ class menuController extends _Main
         $father=load_model('menu');
         $father->loadAll('id,menu_text',' menu_pid=0 ');
         $return = $father->all();
-        $res=objToArr($return);
+        $res=objToArr($return,true);
         array_push($res,array('menu_text'=>'ROOT'));
         exit(json_encode($res));
     }
