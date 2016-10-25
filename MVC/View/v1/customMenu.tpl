@@ -101,7 +101,8 @@
     }
     function accept(){
         if (endEditing()){
-            $('#dg').datagrid('acceptChanges');
+            $('#dg').datagrid('endEdit');
+//            $('#dg').datagrid('acceptChanges');   //破玩意儿更新了数据
         }
     }
     function reject(){
@@ -112,20 +113,32 @@
     function getChanges(){
 //        var rows = $('#dg').datagrid('getChanges');
 //        alert(rows.length+' rows are changed!');
-        var rows=$('#dg').datagrid('getRows');
-        var json='';
-        for(var i=0;i<rows.length;i++){
-            var row=rows[i];
-            rows[i]['menu_type']=changeMenuType(row);
-        }
-        json=JSON.stringify(rows);
+//        var rows=$('#dg').datagrid('getChanges');
+        var inserted=$('#dg').datagrid('getChanges','inserted');
+        var updated=$('#dg').datagrid('getChanges','updated');
+        var deleted=$('#dg').datagrid('getChanges','deleted');
+        var effectRow = new Object();
+        if (inserted.length)effectRow['inserted'] = inserted;
+        if (updated.length)effectRow['updated'] = updated;
+        if (deleted.length)effectRow['deleted'] = deleted;
+
         $.ajax({
             url:'?control=menu&action=receiveMenu',
-            data:{"json":json},
+            data:{"json":JSON.stringify(effectRow)},
             type:'POST',
             dataType:'json',
             success:function(callback){
-                alert(callback);
+                if(callback)
+                {
+                    $('#dg').datagrid('acceptChanges');
+//                    $.messager.alert('Data transfer','All changes has been effected in database and WeChat!','error');
+                    $.messager.show({
+                        title:'Data transfer',
+                        msg:'All changes has been effected in database and WeChat!',
+                        timeout:3000,
+                        showType:'slide'
+                    });
+                }
             }
         });
 
@@ -207,17 +220,17 @@
                             }
                         }
                     },
-                    {
-                        field: 'menu_status', title: 'Menu Status', align: 'center',
-                        editor: {
-                            type: 'checkbox',
-                            options: {on: 'P', off: ''}
-                        }
-                    }
+//                    {
+//                        field: 'menu_status', title: 'Menu Status', align: 'center',
+//                        editor: {
+//                            type: 'checkbox',
+//                            options: {on: 'P', off: ''}
+//                        }
+//                    }
                 ]
             ],
         });
 //        $('#menuStyle').append("<button type='button' class='btn btn-default'>Left</button>");
-
+        $('document').click(endEditing());
     });
 </script>

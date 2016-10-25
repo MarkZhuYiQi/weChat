@@ -15,8 +15,11 @@ define("APPSECRET","be27d8bf1bcdde5065454e943341268c");
  * access_token:全局接口调用唯一凭据，至少512字符空间，有效期为2小时
  * expire_in:返回一个0-7200之间的数字，超过7200及2小时token失效，需要更新
  */
+
+/*
 date_default_timezone_set('Asia/Shanghai');
-echo date('Y-m-d H:i:s');
+
+
 
 //get_access_token();
 //get_weixin_ip();
@@ -137,3 +140,56 @@ function customMenu()
     echo($res);
 }
 //customMenu();
+
+
+*/
+//-------------------------------------------------------------------------------------------------
+require("vendor/autoload.php");
+class model
+{
+    public $_dsn;
+    public $_result;
+    public $_db = false;
+    public $_modelName = '';
+
+    function __construct($mName, $dsn)
+    {
+        //mName是要查询的表名
+        //NOTORM用的初始化字符串
+        $this->_dsn = $dsn;
+        if ($dsn == DB_DSN) {
+            $this->_modelName = DB_PREFIX . '_' . $mName;
+        } else {
+            $this->_modelName = $mName;
+        }
+        $this->modelInit();
+    }
+
+    function modelInit()
+    {
+        $pdo = new \PDO($this->_dsn, 'root', '7777777y');
+        $pdo->query("set time_zone = '+08:00'");
+        $structure = new \NotORM_Structure_Convention(
+            $primary = 'id',          //这里告诉NotORM我们的主键都是ID这种英文单词
+            $foreign = '%sid',        //同理，外键都是外表名+id,这很重要，否则NotORM拼接SQL都会拼错
+            $table = '%s',
+            $prefix = ''              //表前缀
+        );
+        $date = $pdo->query("select `we_subscribeDate` from `we_user` where `we_id`=4  ");
+        foreach ($date as $row) {
+            $date = $row['we_subscribeDate'];
+        }
+//        $pdo->exec("set names utf8");
+        $this->_db = new \NotORM($pdo, $structure);  //初始化
+    }
+    function insert($array)
+    {
+        $tbName=$this->_modelName;
+        echo $this->_db->$tbName()->insert($array);
+    }
+
+
+}
+
+$data=new model('menu',DB_DSN);
+$data->insert(array('menu_text'=>'test','menu_type'=>'2','menu_key'=>'test'));

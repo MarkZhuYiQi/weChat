@@ -146,6 +146,12 @@ function IP(){
     }
     return $cip;
 }
+
+/**
+ * @param $obj
+ * @param bool $getId 如果需要保留索引在最前方，就传入true
+ * @return array
+ */
 function objToArr($obj,$getId=false)
 {
     $res=[];

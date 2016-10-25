@@ -40,10 +40,10 @@ class model
             $table='%s',            
             $prefix=''              //表前缀
         );
-        $date=$pdo->query("select `we_subscribeDate` from `we_user` where `we_id`=4  ");
-        foreach($date as $row){
-            $date=$row['we_subscribeDate'];
-        }
+//        $date=$pdo->query("select `we_subscribeDate` from `we_user` where `we_id`=4  ");
+//        foreach($date as $row){
+//            $date=$row['we_subscribeDate'];
+//        }
 //        $pdo->exec("set names utf8");
         $this->_db=new \NotORM($pdo,$structure);  //初始化
     }
@@ -71,16 +71,19 @@ class model
     {
         return $this->_result;
     }
-    function insert($array,$tbName)
+    function insert($array)
     {
+        $tbName=$this->_modelName;
         return $this->_db->$tbName()->insert($array);
     }
-    function update($array,$tbName)
+    function update($array)
     {
+        $tbName=$this->_modelName;
         return $this->_db->$tbName()->update($array);
     }
-    function insert_update($unique,$arr1,$arr2,$tbName)
+    function insert_update($unique,$arr1,$arr2)
     {
+        $tbName=$this->_modelName;
         return $this->_db->$tbName()->insert_update($unique,$arr1,$arr2);
     }
     function delete($where)
