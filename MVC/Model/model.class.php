@@ -79,9 +79,9 @@ class model
     {
         return $this->_db->$tbName()->update($array);
     }
-    function insert_update($array,$tbName)
+    function insert_update($unique,$arr1,$arr2,$tbName)
     {
-        echo $this->_db->$tbName()->update($array);
+        return $this->_db->$tbName()->insert_update($unique,$arr1,$arr2);
     }
     function delete($where)
     {

@@ -69,25 +69,27 @@ class menuController extends _Main
     function receiveMenu()
     {
         $menuRec=(json_decode($_POST['json']));
+        $menuItems=array();
+        $unique=array();        //这个数组用于存放索引ID
         foreach($menuRec as $k=>$r)
         {
-
-            if($r['menu_pid']=='ROOT')
+            $menuRec[$k]->menu_pid=$r->menu_pid=='ROOT'?0:substr($r->menu_pid,0,1);
+            foreach($r as $key => $value)
             {
-                $menuRec[$k]['menu_pid']=0;
+                $menuItems[$k][$key]=$value;
             }
-            else
-            {
-                
-            }
+        }
+        $unique=array('id'=>1);
+        $menu=load_model('menu_type');
+        foreach($menuItems as $k=>$r)
+        {
+//            var_dump($menuItems[$k]);
+            $menu->insert_update($unique,$menuItems[$k],$menuItems[$k],'we_menu_type');
         }
 
 
 
 
-
-
-        $menu=load_model('menu_type');
-        $menu->insert_update();
+        exit();
     }
 }
