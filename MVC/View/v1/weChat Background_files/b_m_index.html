@@ -1,0 +1,261 @@
+<!DOCTYPE html>
+<html class="panel-fit"><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>weChat Background</title>
+    <script src="jquery-3.js"></script>
+    <script src="json2.js"></script>
+    <script src="jquery.js"></script>
+    <link rel="stylesheet" href="easyui.css">
+    <link rel="stylesheet" href="icon.css">
+
+</head>
+<body class="easyui-layout layout panel-noscroll">
+<!-- 新 Bootstrap 核心 CSS 文件 -->
+<link rel="stylesheet" href="b_m_index_data/bootstrap.css">
+
+<!-- 可选的Bootstrap主题文件（一般不用引入） -->
+<link rel="stylesheet" href="b_m_index_data/bootstrap-theme.css">
+
+<!-- jQuery文件。务必在bootstrap.min.js 之前引入 -->
+<!--<script src="http://cdn.bootcss.com/jquery/1.11.1/jquery.min.js"></script>-->
+
+<!-- 最新的 Bootstrap 核心 JavaScript 文件 -->
+<script src="b_m_index_data/bootstrap.js"></script>
+<style>
+    .panel-body{
+        padding:0;
+    }
+</style>
+
+
+<div style="padding:0 10px;">
+    <div class="row clearfix">
+        <div class="col-md-8 column">
+            <h2>weChat Data</h2>
+            <p>Click the row to start editing.</p>
+            <div style="margin:20px 0;"></div>
+
+            <div class="panel datagrid"><div class="panel-header" style="width: 1068.67px;"><div class="panel-title panel-with-icon">Customize WeChat Menu</div><div class="panel-icon icon-edit"></div><div class="panel-tool"></div></div><div class="datagrid-wrap panel-body" title="" style="width: 1068.67px;" id=""><div id="tb" style="height:auto" class="datagrid-toolbar">
+                <a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-small l-btn-plain" data-options="iconCls:'icon-add',plain:true" onclick="append()" group="" id=""><span class="l-btn-left l-btn-icon-left"><span class="l-btn-text">Append</span><span class="l-btn-icon icon-add">&nbsp;</span></span></a>
+                <a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-small l-btn-plain" data-options="iconCls:'icon-remove',plain:true" onclick="removeit()" group="" id=""><span class="l-btn-left l-btn-icon-left"><span class="l-btn-text">Remove</span><span class="l-btn-icon icon-remove">&nbsp;</span></span></a>
+                <a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-small l-btn-plain" data-options="iconCls:'icon-save',plain:true" onclick="accept()" group="" id=""><span class="l-btn-left l-btn-icon-left"><span class="l-btn-text">Accept</span><span class="l-btn-icon icon-save">&nbsp;</span></span></a>
+                <a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-small l-btn-plain" data-options="iconCls:'icon-undo',plain:true" onclick="reject()" group="" id=""><span class="l-btn-left l-btn-icon-left"><span class="l-btn-text">Reject</span><span class="l-btn-icon icon-undo">&nbsp;</span></span></a>
+                <a href="javascript:void(0)" class="easyui-linkbutton l-btn l-btn-small l-btn-plain" data-options="iconCls:'icon-search',plain:true" onclick="getChanges()" group="" id=""><span class="l-btn-left l-btn-icon-left"><span class="l-btn-text">GetChanges</span><span class="l-btn-icon icon-search">&nbsp;</span></span></a>
+            </div><div class="datagrid-view" style="width: 1066.67px; height: 150px;"><div class="datagrid-view1" style="width: 0px;"><div class="datagrid-header" style="width: 0px; height: 25px;"><div class="datagrid-header-inner" style="display: block;"><table class="datagrid-htable" style="height: 25px;" cellspacing="0" cellpadding="0" border="0"><tbody></tbody></table></div></div><div class="datagrid-body" style="width: 0px; margin-top: 0px; height: 125px;"><div class="datagrid-body-inner"></div></div><div class="datagrid-footer" style="width: 0px;"><div class="datagrid-footer-inner" style="display: none;"></div></div></div><div class="datagrid-view2" style="width: 1066.67px;"><div class="datagrid-header" style="width: 1066.67px; height: 25px;"><div class="datagrid-header-inner" style="display: block;"><table class="datagrid-htable" style="height: 25px;" cellspacing="0" cellpadding="0" border="0"><tbody><tr class="datagrid-header-row"><td field="id"><div class="datagrid-cell datagrid-cell-c2-id" style="text-align: center;"><span>Menu Id</span><span class="datagrid-sort-icon"></span></div></td><td field="menu_text"><div class="datagrid-cell datagrid-cell-c2-menu_text" style="text-align: center;"><span>Menu Name</span><span class="datagrid-sort-icon"></span></div></td><td field="menu_type" class=""><div class="datagrid-cell datagrid-cell-c2-menu_type" style="text-align: center;"><span>Menu Type</span><span class="datagrid-sort-icon"></span></div></td><td field="menu_key" class=""><div class="datagrid-cell datagrid-cell-c2-menu_key" style="text-align: center;"><span>Menu Key</span><span class="datagrid-sort-icon"></span></div></td><td field="menu_url" class=""><div class="datagrid-cell datagrid-cell-c2-menu_url" style="text-align: center;"><span>Menu URL</span><span class="datagrid-sort-icon"></span></div></td><td field="menu_media_id" class=""><div class="datagrid-cell datagrid-cell-c2-menu_media_id" style="text-align: center;"><span>Menu Media Id</span><span class="datagrid-sort-icon"></span></div></td><td field="menu_pid"><div class="datagrid-cell datagrid-cell-c2-menu_pid" style="text-align: center;"><span>Menu Father</span><span class="datagrid-sort-icon"></span></div></td></tr></tbody></table></div></div><div class="datagrid-body" style="width: 1066.67px; margin-top: 0px; height: 125px; overflow-x: hidden;"><table class="datagrid-btable" style="" cellspacing="0" cellpadding="0" border="0"><tbody><tr id="datagrid-row-r2-2-0" datagrid-row-index="0" class="datagrid-row" style="background-color:#fff;color:#666666;"><td field="id"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-id">1</div></td><td field="menu_text"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_text">最新发布</div></td><td field="menu_type"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_type">click</div></td><td field="menu_key"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_key">WE_NEWEST</div></td><td field="menu_url"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_url"></div></td><td field="menu_media_id"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_media_id"></div></td><td field="menu_pid"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_pid">0.ROOT</div></td></tr><tr id="datagrid-row-r2-2-1" datagrid-row-index="1" class="datagrid-row datagrid-row-alt" style="background-color:#fff;color:#666666;"><td field="id"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-id">2</div></td><td field="menu_text"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_text">菜单</div></td><td field="menu_type"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_type">father</div></td><td field="menu_key"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_key"></div></td><td field="menu_url"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_url"></div></td><td field="menu_media_id"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_media_id"></div></td><td field="menu_pid"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_pid">0.ROOT</div></td></tr><tr id="datagrid-row-r2-2-2" datagrid-row-index="2" class="datagrid-row" style="background-color:#fff;color:#666666;"><td field="id"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-id">3</div></td><td field="menu_text"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_text">搜索</div></td><td field="menu_type"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_type">view</div></td><td field="menu_key"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_key"></div></td><td field="menu_url"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_url">http://www.soso.com/</div></td><td field="menu_media_id"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_media_id"></div></td><td field="menu_pid"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_pid">2.菜单</div></td></tr><tr id="datagrid-row-r2-2-3" datagrid-row-index="3" class="datagrid-row datagrid-row-alt" style="background-color:#fff;color:#666666;"><td field="id"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-id">4</div></td><td field="menu_text"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_text">赞一下我们</div></td><td field="menu_type"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_type">click</div></td><td field="menu_key"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_key">GOOD</div></td><td field="menu_url"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_url"></div></td><td field="menu_media_id"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_media_id"></div></td><td field="menu_pid"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_pid">2.菜单</div></td></tr><tr id="datagrid-row-r2-2-4" datagrid-row-index="4" class="datagrid-row" style="background-color:#fff;color:#666666;"><td field="id"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-id">5</div></td><td field="menu_text"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_text">关于我们</div></td><td field="menu_type"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_type">click</div></td><td field="menu_key"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_key">WE_ABOUT</div></td><td field="menu_url"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_url"></div></td><td field="menu_media_id"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_media_id"></div></td><td field="menu_pid"><div style="text-align:center;height:auto;" class="datagrid-cell datagrid-cell-c2-menu_pid">0.ROOT</div></td></tr></tbody></table></div><div class="datagrid-footer" style="width: 1066.67px;"><div class="datagrid-footer-inner" style="display: none;"></div></div></div><table id="dg" class="easyui-datagrid datagrid-f" title="Customize WeChat Menu" style="display: none;"></table><style type="text/css" easyui="true">
+.datagrid-header-rownumber{width:29px}
+.datagrid-cell-rownumber{width:29px}
+.datagrid-cell-c2-id{width:52px}
+.datagrid-cell-c2-menu_text{width:75px}
+.datagrid-cell-c2-menu_type{width:156px}
+.datagrid-cell-c2-menu_key{width:63px}
+.datagrid-cell-c2-menu_url{width:67px}
+.datagrid-cell-c2-menu_media_id{width:89px}
+.datagrid-cell-c2-menu_pid{width:77px}
+</style></div></div></div>
+
+            
+        </div>
+
+        <div class="col-md-4 column" style="border:1px solid #cccccc">
+            <div id="buttons" style="text-align:center;padding-top:300px;">
+                <div class="btn-group" id="menuStyle">
+                    <button type="button" class="btn btn-default">Left</button>
+                    <button type="button" class="btn btn-default">Middle</button>
+                    <button type="button" class="btn btn-default">Right</button>
+                    <div class="btn-group dropup">
+                        <button type="button" class="btn btn-default">Dropup</button>
+                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                            <span class="caret"></span>
+                            <span class="sr-only">Toggle Dropdown</span>
+                        </button>
+                        <ul class="dropdown-menu" role="menu">
+                            <!-- Dropdown menu links -->
+                            <li><a href="#">test1</a></li>
+                            <li><a href="#">test2</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+    var editIndex = undefined;
+    function endEditing(){
+        if (editIndex == undefined){return true}
+        if ($('#dg').datagrid('validateRow', editIndex)){
+            var ed = $('#dg').datagrid('getEditor', {index:editIndex,field:'menu_type'});
+            var menuType = $(ed.target).combobox('getText');
+            $('#dg').datagrid('getRows')[editIndex]['menu_type'] = menuType;
+            $('#dg').datagrid('endEdit', editIndex);
+            editIndex = undefined;
+            return true;
+        } else {
+            return false;
+        }
+    }
+    function onClickRow(index){     //包含2个参数，index被点击行的索引，从0开始;Data被点击行对应的记录
+        if (editIndex != index){
+            if (endEditing()){
+                $('#dg').datagrid('selectRow', index)
+                        .datagrid('beginEdit', index);
+                editIndex = index;
+            } else {
+                $('#dg').datagrid('selectRow', editIndex);
+            }
+        }
+    }
+    function append(){
+        if (endEditing()){
+            $('#dg').datagrid('appendRow',{status:'P'});
+            editIndex = $('#dg').datagrid('getRows').length-1;
+            $('#dg').datagrid('selectRow', editIndex)
+                    .datagrid('beginEdit', editIndex);
+        }
+    }
+    function removeit(){
+        if (editIndex == undefined){return}
+        $('#dg').datagrid('cancelEdit', editIndex)
+                .datagrid('deleteRow', editIndex);
+        editIndex = undefined;
+    }
+    function accept(){
+        if (endEditing()){
+            $('#dg').datagrid('endEdit');
+//            $('#dg').datagrid('acceptChanges');   //破玩意儿更新了数据
+        }
+    }
+    function reject(){
+        $('#dg').datagrid('rejectChanges');
+        editIndex = undefined;
+    }
+    //get changes按钮功能
+    function getChanges(){
+//        var rows = $('#dg').datagrid('getChanges');
+//        alert(rows.length+' rows are changed!');
+//        var rows=$('#dg').datagrid('getChanges');
+        var inserted=$('#dg').datagrid('getChanges','inserted');
+        var updated=$('#dg').datagrid('getChanges','updated');
+        var deleted=$('#dg').datagrid('getChanges','deleted');
+        var effectRow = new Object();
+        if (inserted.length)effectRow['inserted'] = inserted;
+        if (updated.length)effectRow['updated'] = updated;
+        if (deleted.length)effectRow['deleted'] = deleted;
+
+        $.ajax({
+            url:'?control=menu&action=receiveMenu',
+            data:{"json":JSON.stringify(effectRow)},
+            type:'POST',
+            dataType:'json',
+            success:function(callback){
+                if(callback)
+                {
+                    $('#dg').datagrid('acceptChanges');
+//                    $.messager.alert('Data transfer','All changes has been effected in database and WeChat!','error');
+                    $.messager.show({
+                        title:'Data transfer',
+                        msg:'All changes has been effected in database and WeChat!',
+                        timeout:3000,
+                        showType:'slide'
+                    });
+                }
+            }
+        });
+
+    }
+    function changeMenuType(row){
+            switch(row.menu_type){
+                case 'click':
+                    return 1;
+                case 'view':
+                    return 2;
+                case 'scancode_push':
+                    return 3;
+                case 'scancode_waitmsg':
+                    return 4;
+                case 'pic_sysphoto':
+                    return 5;
+                case 'pic_photo_or_album':
+                    return 6;
+                case 'pic_weixin':
+                    return 7;
+                case 'location_select':
+                    return 8;
+                case 'media_id':
+                    return 9;
+                case 'view_limited':
+                    return 10;
+            }
+    }
+    $(document).ready(function(){
+        $('#dg').datagrid({
+            iconCls: 'icon-edit',
+            striped: true, //行背景交换
+            idField: 'id', //主键
+            fitColumns:true,    //自动宽度防止滚动
+            singleSelect: true,
+            toolbar: '#tb',
+            url: '?control=menu&action=menuDetail',
+            method: 'get',
+            onClickRow: onClickRow,
+            rowStyler: function (index, row) {          //定义为返回样式字符串用于定义数据表格的样式，2个参数，行的索引和相应记录
+                return 'background-color:#fff;color:#666666;';
+            },
+            columns: [
+                [
+                    {field: 'id', title: 'Menu Id', align: 'center'},
+                    {field: 'menu_text', title: 'Menu Name', align: 'center', editor: 'text'},
+                    {
+                        field: 'menu_type', title: 'Menu Type', align: 'center',width:'15%',
+                        formatter: function (value, row, index) {   //value是该行的值，row是该行的对象，index是索引
+                            return row.menu_type;
+                        },
+                        editor: {
+                            type: 'combobox',
+                            options: {
+                                valueField: 'type_text',
+                                textField: 'type_text',
+                                method: 'get',
+                                url: '?control=menu&action=menuType',
+                                required: true
+                            }
+                        }
+                    },
+                    {field: 'menu_key', title: 'Menu Key', align: 'center', editor: 'text'},
+                    {field: 'menu_url', title: 'Menu URL', align: 'center', editor: 'text'},
+                    {field: 'menu_media_id', title: 'Menu Media Id', align: 'center', editor: 'text'},
+                    {
+                        field: 'menu_pid', title: 'Menu Father', align: 'center',
+                        formatter:function(value,row,index) {
+                            return row.menu_pid;
+                        },
+                        editor: {
+                            type: 'combobox',
+                            options: {
+                                valueField: 'menu_text',
+                                textField: 'menu_text',
+                                method: 'get',
+                                url: '?control=menu&action=menuFather',
+                                require: true
+                            }
+                        }
+                    },
+//                    {
+//                        field: 'menu_status', title: 'Menu Status', align: 'center',
+//                        editor: {
+//                            type: 'checkbox',
+//                            options: {on: 'P', off: ''}
+//                        }
+//                    }
+                ]
+            ],
+        });
+//        $('#menuStyle').append("<button type='button' class='btn btn-default'>Left</button>");
+        $('document').click(endEditing());
+    });
+</script>
+<div class="layout-split-proxy-h"></div><div class="layout-split-proxy-v"></div></body></html>

@@ -1,4 +1,10 @@
 <?php
+
+    //测试账号的信息
+    define('APPID','wx9a7e00ceaf1818fc');
+    define('APPSECRET','be27d8bf1bcdde5065454e943341268c');
+
+
     define('DB_TYPE','mysql');          // 数据库类型
     define('DB_HOST','localhost');   // 数据库服务器地址
     define('DB_NAME','red');            // 数据库名称

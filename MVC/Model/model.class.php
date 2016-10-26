@@ -76,6 +76,16 @@ class model
         $tbName=$this->_modelName;
         return $this->_db->$tbName()->insert($array);
     }
+
+    /**
+     * @param $array    大数组包含所有需要插入的键值构成的数组
+     * @return mixed
+     */
+    function insert_multi($array)
+    {
+        $tbName=$this->_modelName;
+        return $this->_db->$tbName()->insert_multi($array);
+    }
     function update($array)
     {
         $tbName=$this->_modelName;

@@ -19,7 +19,7 @@
 <div style="padding:0 10px;">
     <div class="row clearfix">
         <div class="col-md-8 column">
-            <h2>Row Editing in DataGrid</h2>
+            <h2>weChat Data</h2>
             <p>Click the row to start editing.</p>
             <div style="margin:20px 0;"></div>
 
@@ -117,20 +117,30 @@
         var inserted=$('#dg').datagrid('getChanges','inserted');
         var updated=$('#dg').datagrid('getChanges','updated');
         var deleted=$('#dg').datagrid('getChanges','deleted');
-        var effectRow = new Object();
-        if (inserted.length)effectRow['inserted'] = inserted;
+//        var effectRow = new Object();
+        var effectRow = [];
+        effectRow['inserted']=[];
+        effectRow['deleted']=[];
+        effectRow['updated']=[];
+        for(var i=0;i<inserted.length;i++){
+            effectRow['inserted'].push(inserted[i]);
+        }
         if (updated.length)effectRow['updated'] = updated;
         if (deleted.length)effectRow['deleted'] = deleted;
 
         $.ajax({
             url:'?control=menu&action=receiveMenu',
-            data:{"json":JSON.stringify(effectRow)},
+            data:{
+                "inserted":JSON.stringify(effectRow['inserted']),
+                "updated":JSON.stringify(effectRow['updated']),
+                "deleted":JSON.stringify(effectRow['deleted'])
+            },
             type:'POST',
             dataType:'json',
             success:function(callback){
                 if(callback)
                 {
-                    $('#dg').datagrid('acceptChanges');
+//                    $('#dg').datagrid('acceptChanges');
 //                    $.messager.alert('Data transfer','All changes has been effected in database and WeChat!','error');
                     $.messager.show({
                         title:'Data transfer',

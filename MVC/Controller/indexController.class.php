@@ -4,9 +4,7 @@ use MVC\Model\indexModel;
 use MVC\Model\materialModel;
 use MVC\Controller\replyController;
 
-//测试账号的信息
-define('APPID','wx9a7e00ceaf1818fc');
-define('APPSECRET','be27d8bf1bcdde5065454e943341268c');
+
 class indexController
 {
     public function index()
@@ -121,6 +119,7 @@ class indexController
             }
         ]
     }';
+//        $test='{"button":[{"type":"click","name":"最新发布","key":"WE_NEWEST"},{"name":"菜单","sub_button":[{"type":"view","name":"搜索","url":"http://www.soso.com/"},{"type":"click","name":"赞一下我1","key":"GOOD"}]},{"type":"click","name":"关于我","key":"WE_ABOUT"}]}';
         echo(httpPOST($url,$menuData));
     }
 }
